@@ -8,5 +8,8 @@
     "test": "jest"
   },
   "author": "pione30 <g.pionelish30@gmail.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^12.5.1"
+  }
 }
