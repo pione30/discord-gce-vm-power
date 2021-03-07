@@ -5,6 +5,7 @@
   "description": "start / stop gce vm instance",
   "main": "src/index.ts",
   "scripts": {
+    "build": "tsc -p tsconfig.json && node -r dotenv/config dist/index.js",
     "test": "jest"
   },
   "author": "pione30 <g.pionelish30@gmail.com>",
