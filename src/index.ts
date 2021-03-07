@@ -81,7 +81,7 @@ discordClient.on("message", async (message) => {
       return;
     }
 
-    powerInstance(message, instanceName, operationName, zoneName);
+    await powerInstance(message, instanceName, operationName, zoneName);
   }
 });
 
