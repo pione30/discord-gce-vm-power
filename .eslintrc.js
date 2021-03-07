@@ -12,4 +12,9 @@ module.exports = {
     parserOptions: {
         ecmaVersion: 2020,
     },
+    rules: {
+        "@typescript-eslint/ban-ts-comment": ["error", {
+            "ts-ignore": "allow-with-description"
+        }],
+    }
 };
