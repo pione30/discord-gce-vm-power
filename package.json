@@ -1,0 +1,12 @@
+{
+  "name": "discord-gce-vm-power",
+  "version": "0.1.0",
+  "private": true,
+  "description": "start / stop gce vm instance",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "pione30 <g.pionelish30@gmail.com>",
+  "license": "ISC"
+}
