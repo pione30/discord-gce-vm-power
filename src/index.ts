@@ -13,8 +13,8 @@ type operationType = "start" | "stop";
 
 const powerInstance = async (
   message: Discord.Message,
-  instanceName: string,
   operationName: operationType,
+  instanceName: string,
   zoneName?: string
 ): Promise<void> => {
   const zone = googleCompute.zone(zoneName ?? process.env.DEFAULT_COMPUTE_ZONE);
@@ -71,17 +71,17 @@ const powerInstance = async (
 discordClient.on("message", async (message) => {
   const commands = message.content.split(" ");
   if (commands[0] === ".gce") {
-    const [_dotGce, instanceName, operationName, zoneName] = commands;
+    const [_dotGce, operationName, instanceName, zoneName] = commands;
 
     if (
       commands.length < 3 ||
       (operationName !== "start" && operationName !== "stop")
     ) {
-      message.channel.send("Usage: `.gce <instance-name> (start|stop)`");
+      message.channel.send("Usage: `.gce (start|stop) <instance-name>`");
       return;
     }
 
-    await powerInstance(message, instanceName, operationName, zoneName);
+    await powerInstance(message, operationName, instanceName, zoneName);
   }
 });
 
