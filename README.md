@@ -9,3 +9,7 @@ Provides Discord-bot command to start / stop your vm instance on GCE.
 ### Development
 
 Set your environment variables in `.env`.
+
+### License
+
+MIT
