@@ -1,6 +1,6 @@
 {
   "name": "discord-gce-vm-power",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "start / stop gce vm instance",
   "main": "src/index.ts",
