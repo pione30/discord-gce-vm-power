@@ -44,7 +44,9 @@ const fetchVM = (interaction: CommandInteraction) => {
   const zone = googleCompute.zone(
     interaction.options.getString("zone") ?? process.env.DEFAULT_COMPUTE_ZONE
   );
-  return zone.vm(interaction.options.getString("instance", true));
+
+  const instanceName = interaction.options.getString("instance", true);
+  return [zone.vm(instanceName), instanceName];
 };
 
 const execute = async (interaction: CommandInteraction): Promise<void> => {
@@ -53,23 +55,21 @@ const execute = async (interaction: CommandInteraction): Promise<void> => {
     if (subcommand === "start") {
       await interaction.deferReply();
 
-      const vm = fetchVM(interaction);
+      const [vm, instanceName] = fetchVM(interaction);
       const [operation] = await vm.start();
       await operation.promise();
       const vmData = await vm.get();
 
-      const instanceName = interaction.options.getString("instance", true);
       await interaction.followUp(
         `${instanceName} started!\nIP address: ${vmData[0].metadata.networkInterfaces[0].accessConfigs[0].natIP}`
       );
     } else if (subcommand === "stop") {
       await interaction.deferReply();
 
-      const vm = fetchVM(interaction);
+      const [vm, instanceName] = fetchVM(interaction);
       const [operation] = await vm.stop();
       await operation.promise();
 
-      const instanceName = interaction.options.getString("instance", true);
       await interaction.followUp(`${instanceName} stopped!`);
     } else {
       throw "This subcommand is not supported.";
