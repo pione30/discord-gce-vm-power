@@ -51,25 +51,25 @@ const execute = async (interaction: CommandInteraction): Promise<void> => {
   const subcommand = interaction.options.getSubcommand();
   try {
     if (subcommand === "start") {
-      const instanceName = interaction.options.getString("instance", true);
-      await interaction.reply(`${instanceName} starting...`);
+      await interaction.deferReply();
 
       const vm = fetchVM(interaction);
       const [operation] = await vm.start();
       await operation.promise();
       const vmData = await vm.get();
 
+      const instanceName = interaction.options.getString("instance", true);
       await interaction.followUp(
         `${instanceName} started!\nIP address: ${vmData[0].metadata.networkInterfaces[0].accessConfigs[0].natIP}`
       );
     } else if (subcommand === "stop") {
-      const instanceName = interaction.options.getString("instance", true);
-      await interaction.reply(`${instanceName} stopping...`);
+      await interaction.deferReply();
 
       const vm = fetchVM(interaction);
       const [operation] = await vm.stop();
       await operation.promise();
 
+      const instanceName = interaction.options.getString("instance", true);
       await interaction.followUp(`${instanceName} stopped!`);
     } else {
       throw "This subcommand is not supported.";
@@ -81,7 +81,7 @@ const execute = async (interaction: CommandInteraction): Promise<void> => {
     };
 
     try {
-      interaction.replied
+      interaction.replied || interaction.deferred
         ? await interaction.followUp(replyOptions)
         : await interaction.reply(replyOptions);
     } catch (replyError) {
