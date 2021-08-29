@@ -10,7 +10,7 @@ const setInstanseOption = (option: SlashCommandStringOption) =>
   option
     .setName("instance")
     .setDescription("Instance name (ex. `minecraft`)")
-    .setRequired(true);
+    .setRequired(false);
 
 const setZoneOption = (option: SlashCommandStringOption) =>
   option
@@ -45,7 +45,10 @@ const fetchVM = (interaction: CommandInteraction) => {
     interaction.options.getString("zone") ?? process.env.DEFAULT_COMPUTE_ZONE
   );
 
-  const instanceName = interaction.options.getString("instance", true);
+  const instanceName =
+    interaction.options.getString("instance") ??
+    process.env.DEFAULT_INSTANCE_NAME;
+
   return [zone.vm(instanceName), instanceName];
 };
 
