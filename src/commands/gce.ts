@@ -49,7 +49,10 @@ const fetchVM = (interaction: CommandInteraction) => {
     interaction.options.getString("instance") ??
     process.env.DEFAULT_INSTANCE_NAME;
 
-  return [zone.vm(instanceName), instanceName];
+  return {
+    vm: zone.vm(instanceName),
+    instanceName,
+  };
 };
 
 const execute = async (interaction: CommandInteraction): Promise<void> => {
@@ -58,7 +61,7 @@ const execute = async (interaction: CommandInteraction): Promise<void> => {
     if (subcommand === "start") {
       await interaction.deferReply();
 
-      const [vm, instanceName] = fetchVM(interaction);
+      const { vm, instanceName } = fetchVM(interaction);
       const [operation] = await vm.start();
       await operation.promise();
       const vmData = await vm.get();
@@ -69,7 +72,7 @@ const execute = async (interaction: CommandInteraction): Promise<void> => {
     } else if (subcommand === "stop") {
       await interaction.deferReply();
 
-      const [vm, instanceName] = fetchVM(interaction);
+      const { vm, instanceName } = fetchVM(interaction);
       const [operation] = await vm.stop();
       await operation.promise();
 
