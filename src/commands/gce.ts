@@ -41,16 +41,19 @@ const data = new SlashCommandBuilder()
 const googleCompute = new Compute();
 
 const fetchVM = (interaction: CommandInteraction) => {
-  const zone = googleCompute.zone(
-    interaction.options.getString("zone") ?? process.env.DEFAULT_COMPUTE_ZONE
-  );
+  const zone =
+    interaction.options.getString("zone") ?? process.env.DEFAULT_COMPUTE_ZONE;
 
   const instanceName =
     interaction.options.getString("instance") ??
     process.env.DEFAULT_INSTANCE_NAME;
 
+  if (zone === undefined) throw "zone must be specified!";
+  if (instanceName === undefined) throw "instance name must be specified!";
+
+  const computeZone = googleCompute.zone(zone);
   return {
-    vm: zone.vm(instanceName),
+    vm: computeZone.vm(instanceName),
     instanceName,
   };
 };
