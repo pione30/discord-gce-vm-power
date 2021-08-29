@@ -4,7 +4,7 @@ Provides Discord-bot slash command to start / stop your vm instance on GCE.
 
 ### Usage
 
-`/gce (start|stop) instance: <instance-name> [zone: zone]`
+`/gce (start|stop) [instance: <instance-name>] [zone: <zone>]`
 
 ### Development
 
