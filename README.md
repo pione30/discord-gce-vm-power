@@ -1,10 +1,10 @@
 ## Discord GCE vm power
 
-Provides Discord-bot command to start / stop your vm instance on GCE.
+Provides Discord-bot slash command to start / stop your vm instance on GCE.
 
 ### Usage
 
-`.gce (start|stop) <instance-name> [zone]`
+`/gce (start|stop) instance: <instance-name> [zone: zone]`
 
 ### Development
 
